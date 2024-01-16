@@ -156,13 +156,14 @@ def map(fn: Callable[[float], float]) -> Callable[[Iterable[float]], Iterable[fl
         A function that takes a list, applies `fn` to each element, and returns a
          new list
     """
+
     # TODO: Implement for Task 0.3.
-    def apply(ls: Iterable[float]):
+    def apply(ls: Iterable[float]) -> Iterable[float]:
         ret = []
         for x in ls:
             ret.append(fn(x))
         return ret
-    
+
     return apply
     raise NotImplementedError("Need to implement for Task 0.3")
 
@@ -190,13 +191,22 @@ def zipWith(
          applying fn(x, y) on each pair of elements.
 
     """
+
     # TODO: Implement for Task 0.3.
+    def apply(ls1: Iterable[float], ls2: Iterable[float]) -> Iterable[float]:
+        ret = []
+        for x, y in zip(ls1, ls2):
+            ret.append(fn(x, y))
+        return ret
+
+    return apply
     raise NotImplementedError("Need to implement for Task 0.3")
 
 
 def addLists(ls1: Iterable[float], ls2: Iterable[float]) -> Iterable[float]:
     "Add the elements of `ls1` and `ls2` using `zipWith` and `add`"
     # TODO: Implement for Task 0.3.
+    return zipWith(add)(ls1, ls2)
     raise NotImplementedError("Need to implement for Task 0.3")
 
 
@@ -215,17 +225,27 @@ def reduce(
          $x_1 \ldots x_n$ and computes the reduction :math:`fn(x_3, fn(x_2,
          fn(x_1, x_0)))`
     """
+
     # TODO: Implement for Task 0.3.
+    def apply(ls: Iterable[float]) -> float:
+        ret = start
+        for x in ls:
+            ret = fn(x, ret)
+        return ret
+
+    return apply
     raise NotImplementedError("Need to implement for Task 0.3")
 
 
 def sum(ls: Iterable[float]) -> float:
     "Sum up a list using `reduce` and `add`."
     # TODO: Implement for Task 0.3.
+    return reduce(add, 0.0)(ls)
     raise NotImplementedError("Need to implement for Task 0.3")
 
 
 def prod(ls: Iterable[float]) -> float:
     "Product of a list using `reduce` and `mul`."
     # TODO: Implement for Task 0.3.
+    return reduce(mul, 1.0)(ls)
     raise NotImplementedError("Need to implement for Task 0.3")

@@ -111,7 +111,11 @@ def test_sigmoid(a: float, b: float) -> None:
     assert sigmoid(a) >= 0.0 and sigmoid(a) <= 1.0
     assert_close(1 - sigmoid(a), sigmoid(-a))
     assert sigmoid(0.0) == 0.5
-    assert a == b or (a < b and sigmoid(a) <= sigmoid(b)) or (a > b and sigmoid(a) >= sigmoid(b))
+    assert (
+        a == b
+        or (a < b and sigmoid(a) <= sigmoid(b))
+        or (a > b and sigmoid(a) >= sigmoid(b))
+    )
     # raise NotImplementedError("Need to implement for Task 0.2")
 
 
@@ -187,7 +191,8 @@ def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
     # TODO: Implement for Task 0.3.
-    raise NotImplementedError("Need to implement for Task 0.3")
+    assert_close(sum(ls1) + sum(ls2), sum(addLists(ls1, ls2)))
+    # raise NotImplementedError("Need to implement for Task 0.3")
 
 
 @pytest.mark.task0_3
