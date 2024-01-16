@@ -157,12 +157,20 @@ def map(fn: Callable[[float], float]) -> Callable[[Iterable[float]], Iterable[fl
          new list
     """
     # TODO: Implement for Task 0.3.
+    def apply(ls: Iterable[float]):
+        ret = []
+        for x in ls:
+            ret.append(fn(x))
+        return ret
+    
+    return apply
     raise NotImplementedError("Need to implement for Task 0.3")
 
 
 def negList(ls: Iterable[float]) -> Iterable[float]:
     "Use `map` and `neg` to negate each element in `ls`"
     # TODO: Implement for Task 0.3.
+    return map(neg)(ls)
     raise NotImplementedError("Need to implement for Task 0.3")
 
 
