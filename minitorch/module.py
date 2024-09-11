@@ -20,6 +20,7 @@ class Module:
     training: bool
 
     def __init__(self) -> None:
+        """Initialize the module with empty dictionaries for modules and parameters, and set training mode to True."""
         self._modules = {}
         self._parameters = {}
         self.training = True
@@ -32,12 +33,18 @@ class Module:
     def train(self) -> None:
         """Set the mode of this module and all descendent modules to `train`."""
         # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        # raise NotImplementedError("Need to implement for Task 0.4")
+        self.training = True
+        for module in self.modules():
+            module.train()
 
     def eval(self) -> None:
         """Set the mode of this module and all descendent modules to `eval`."""
         # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        # raise NotImplementedError("Need to implement for Task 0.4")
+        self.training = False
+        for module in self.modules():
+            module.eval()
 
     def named_parameters(self) -> Sequence[Tuple[str, Parameter]]:
         """Collect all the parameters of this module and its descendents.
@@ -48,12 +55,27 @@ class Module:
 
         """
         # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        # raise NotImplementedError("Need to implement for Task 0.4")
+        params = []
+        for name, param in self._parameters.items():
+            params.append((name, param))
+        for name, module in self._modules.items():
+            child_params = module.named_parameters()
+            for child_name, child_param in child_params:
+                full_name = name + "." + child_name
+                params.append((full_name, child_param))
+        return params
 
     def parameters(self) -> Sequence[Parameter]:
         """Enumerate over all the parameters of this module and its descendents."""
         # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        # raise NotImplementedError("Need to implement for Task 0.4")
+        params = []
+        for name, param in self._parameters.items():
+            params.append(param)
+        for module in self.modules():
+            params.extend(module.parameters())
+        return params
 
     def add_parameter(self, k: str, v: Any) -> Parameter:
         """Manually add a parameter. Useful helper for scalar parameters.
@@ -89,6 +111,7 @@ class Module:
         return None
 
     def __call__(self, *args: Any, **kwargs: Any) -> Any:
+        """Call the module like a function, i.e., `m(x)`."""
         return self.forward(*args, **kwargs)
 
     def __repr__(self) -> str:
