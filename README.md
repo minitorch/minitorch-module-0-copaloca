@@ -7,4 +7,4 @@
 
 * Overview: https://minitorch.github.io/module0/module0/
 
-<img src="./screenshot.png" width="50%">
+<img src="./screenshot.png">
